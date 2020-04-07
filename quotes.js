@@ -8,7 +8,10 @@ let quotes = [
     'Fuck you replyUser your mum keeps tryin\' to slip a finger in my bum but I keep telling her that I only let randomUser1 mum do that ya fuckin loser',
     'Fuck you replyUser your mom loves anal the way I love Haagen daz. Let\'s go get some fuckin\' ice cream',
     'Fuck your entire fuckin\' life you piece of shit',
-    'Fuck you replyUser your breath\'s an existential crisis; made me question my whole fuckin\' life'
+    'Fuck you replyUser your breath\'s an existential crisis; made me question my whole fuckin\' life',
+    'Fuck you replyUser Your mom pulled the goalie on me and now she\'s preggo. Surprise, son. Go rake the fuckin\' yard',
+    'Fuck you replyUser I talked your mom into a three-way with our midwife and she gassed us both out of the room. I\'m fuckin\' humiliated',
+    'Fuck you replyUser your mom wants to name the baby after the place it was conceived. Can\'t wait to meet Martha\'s Vineyard Shore'
 ]
 
 let users = [

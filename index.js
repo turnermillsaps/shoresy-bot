@@ -6,18 +6,23 @@ const client = new Discord.Client();
 const quotes = require('./quotes');
 const key = require('./key');
 
-// Get a randomQuote
-let randomQuote = quotes.randomQuote();
-
+// When Shoresy comes online, log a message to make sure he doesn't error out
 client.on('ready', () => {
     console.log('Shoresy is online...');
 })
 
+// Call the random reply when someone calls bot
 client.on('message', msg => {
-    let args = msg.split(' ');
+    let args = msg.content.split(' ');
+    let randomQuote = quotes.randomQuote();
     for (let i = 0; i < args.length; i++) {
         if (args[i].toLowerCase() == '!fuckyoushoresy') {
-            msg.channel.send(quotes.modifyQuote()); // Need to find out how to replace replyUser with the account that called the bot
+            msg.channel.send(quotes.modifyQuote(msg.author.username, randomQuote));
+
+            // For testing specific quotes
+            // msg.channel.send(quotes.modifyQuote(msg.author.username, quotes.quotes[3]));  
         }
     }
 })
+
+client.login(key.token);

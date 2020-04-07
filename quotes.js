@@ -1,14 +1,14 @@
 let quotes = [
-    'Fuck you replyUser, tell your mum I drained the bank account she set up for me. Top it up so I can get some fuckin\' KFC.',
-    'Fuck you replyUser, shoulda heard your mum last night she sounded like my great aunt when I pop in for a surprise visit like, ooooooooooohhhhhhhhhhhhh',
-    'Fuck you replyUser, shoulda heard your mum last night she sounded like a window closing on a tonkanese cats tail like, aaaaaaaaaaaahhhhhhhhhhh',
-    'Fuck you replyUser, I made an oopsie. Can you tell randomUser1\'s mum to pick up randomUser2\'s mum on the way to my place? I doubled booked them by mistake you fuckin\' loser',
-    'Fuck you replyUser, tell your mum to top off the cell phone she bought me so I can face-time her late night',
+    'Fuck you replyUser tell your mum I drained the bank account she set up for me. Top it up so I can get some fuckin\' KFC.',
+    'Fuck you replyUser shoulda heard your mum last night she sounded like my great aunt when I pop in for a surprise visit like, ooooooooooohhhhhhhhhhhhh',
+    'Fuck you replyUser shoulda heard your mum last night she sounded like a window closing on a tonkanese cats tail like, aaaaaaaaaaaahhhhhhhhhhh',
+    'Fuck you replyUser I made an oopsie. Can you tell randomUser1 mum to pick up randomUser2 mum on the way to my place? I doubled booked them by mistake you fuckin\' loser',
+    'Fuck you replyUser tell your mum to top off the cell phone she bought me so I can face-time her late night',
     'Great day for competitive men\'s hockey, eh? What\'s women\'s hockey like? Same thing, just less competitive or what?',
-    'Fuck you replyUser, your mum keeps tryin\' to slip a finger in my bum but I keep telling her that I only let randomUser1\'s mum do that ya fuckin loser',
-    'Fuck you replyUser, your mom loves anal the way I love Haagen daz. Let\'s go get some fuckin\' ice cream',
+    'Fuck you replyUser your mum keeps tryin\' to slip a finger in my bum but I keep telling her that I only let randomUser1 mum do that ya fuckin loser',
+    'Fuck you replyUser your mom loves anal the way I love Haagen daz. Let\'s go get some fuckin\' ice cream',
     'Fuck your entire fuckin\' life you piece of shit',
-    'Fuck you replyUser, your breath\'s an existential crisis; made me question my whole fuckin\' life'
+    'Fuck you replyUser your breath\'s an existential crisis; made me question my whole fuckin\' life'
 ]
 
 let users = [
@@ -33,24 +33,41 @@ randomQuote = () => {
 }
 
 // Grab random user
-randomUser = () => {
-    return users[Math.floor(Math.random() * (users.length))];
+randomUser = (name) => {
+    if (!name) {
+        return users[Math.floor(Math.random() * (users.length))];
+    } else {
+        let newIndex = users.indexOf(name) - (Math.floor(Math.random() * (users.length - 1)));
+        if (newIndex < 0) {
+            return users[(users.length - 1) + newIndex];
+        }
+        return users[newIndex];
+    }
 }
 
 // Handle replyUser and randomUser cases with proper values
 modifyQuote = (replyUser, quote) => {
-    quote.replace('replyUser', replyUser);
-    
-    if(quote.includes('randomUser1')) {
-        quote.replace('randomUser1', randomUser());
-    }
+    quote = quote.split(' ');
+    let currentUser;
+    let previousUser;
+    for (let i = 0; i < quote.length; i++) {
+        if (quote[i] == 'replyUser') {
+            quote[i] = `${replyUser},`; // Need a better way to handle this so that if the randomUser has apostraphe's, commas, etc after, I don't explicitly define them here
+        }
 
-    if(quote.includes('randomUser2')) {
-        quote.replace('randomUser2', randomUser());
-    }
+        if (quote[i] == 'randomUser1') {
+            currentUser = randomUser();
+            quote[i] = `${currentUser}\'s`; 
+            previousUser = currentUser;
+        }
 
-    return quote;
+        if (quote[i] == 'randomUser2') {
+            quote[i] = `${randomUser(previousUser)}\'s`; 
+        }
+    }
+    return quote.join(' ');
 }
 
 exports.randomQuote = randomQuote;
 exports.modifyQuote = modifyQuote;
+exports.quotes = quotes; // For testing specific scenarios

@@ -17,7 +17,7 @@ client.on('message', msg => {
     let args = msg.split(' ');
     for (let i = 0; i < args.length; i++) {
         if (args[i].toLowerCase() == '!fuckyoushoresy') {
-            msg.channel.send(quotes.modifyQuote());
+            msg.channel.send(quotes.modifyQuote()); // Need to find out how to replace replyUser with the account that called the bot
         }
     }
 })

@@ -1,4 +1,4 @@
-# Shorsey Bot (nsfw)
+# Shoresy Bot (nsfw)
 Discord Bot for Shorsey from Letterkenny
 
 ## Info

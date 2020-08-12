@@ -1,3 +1,5 @@
+// Create an array with statically defined quotes from the show
+// *Note* this could be stored in a database which would make adding and deleting quotes much easier than modifying code
 let quotes = [
     'Fuck you replyUser tell your mum I drained the bank account she set up for me. Top it up so I can get some fuckin\' KFC.',
     'Fuck you replyUser shoulda heard your mum last night she sounded like my great aunt when I pop in for a surprise visit like, ooooooooooohhhhhhhhhhhhh',
@@ -14,6 +16,8 @@ let quotes = [
     'Fuck you replyUser your mom wants to name the baby after the place it was conceived. Can\'t wait to meet Martha\'s Vineyard Shore'
 ]
 
+// Create an array of names I'd like to loop through
+// *Note* Again, this could be stored in a database for much easier access and modification
 let users = [
     'Brandon',
     'Dean',
@@ -32,17 +36,18 @@ let users = [
 
 // Grab random quote
 randomQuote = () => {
-    return quotes[Math.floor(Math.random() * (quotes.length))];
+    return quotes[Math.floor(Math.random() * (quotes.length))]; // Grabs a random index from the quotes array
 }
 
 // Grab random user
+// *Note* Notice that if an argument is provided, it will return a different index than the original name's index
 randomUser = (name) => {
-    if (!name) {
-        return users[Math.floor(Math.random() * (users.length))];
-    } else {
-        let newIndex = users.indexOf(name) - (Math.floor(Math.random() * (users.length - 1)));
-        if (newIndex < 0) {
-            return users[(users.length - 1) + newIndex];
+    if (!name) { // If no argument is provided
+        return users[Math.floor(Math.random() * (users.length))]; // Grab a random index of the users array
+    } else { 
+        let newIndex = users.indexOf(name) - (Math.floor(Math.random() * (users.length - 1))); // Find the index of the provided name, then subtract the length of the array - 1
+        if (newIndex < 0) { // Make sure if the index is negative, to get a positive index so you don't cause an error
+            return users[(users.length - 1) + newIndex]; 
         }
         return users[newIndex];
     }
@@ -50,10 +55,11 @@ randomUser = (name) => {
 
 // Handle replyUser and randomUser cases with proper values
 modifyQuote = (replyUser, quote) => {
-    quote = quote.split(' ');
+    quote = quote.split(' '); // Split up the quote argument into its own array
     let currentUser;
     let previousUser;
-    for (let i = 0; i < quote.length; i++) {
+    for (let i = 0; i < quote.length; i++) { // Iterate over the quote array
+        // Each condition modifies the index to include the proper grammar
         if (quote[i] == 'replyUser') {
             quote[i] = `${replyUser},`; // Need a better way to handle this so that if the randomUser has apostraphe's, commas, etc after, I don't explicitly define them here
         }
@@ -68,7 +74,7 @@ modifyQuote = (replyUser, quote) => {
             quote[i] = `${randomUser(previousUser)}\'s`; 
         }
     }
-    return quote.join(' ');
+    return quote.join(' '); // Then return the new quote array by using .join()
 }
 
 exports.randomQuote = randomQuote;
